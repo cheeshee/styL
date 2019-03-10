@@ -22,7 +22,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ImageReader {
     // as an object
@@ -140,25 +142,30 @@ public class ImageReader {
                     return;
                 }
 
-                System.out.println("LABELS:\n");
-                for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-                    System.out.printf("%s: %.2f\n", annotation.getDescription(), annotation.getScore());
-                }
-                System.out.println("");
+                Map<String, Float> imageLabels = new HashMap<>();
+                Map<String, Double> imageColours = new HashMap<>();
 
-                System.out.println("WEB:\n");
+                // read Annotation Labels and add to Image Labels
+                for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
+                    imageLabels.put(annotation.getDescription(), annotation.getScore());
+                }
+
+                // read Web Entities and add to Image Labels
                 WebDetection webDet = res.getWebDetection();
                 for (WebDetection.WebEntity entity : webDet.getWebEntitiesList()) {
-                    System.out.printf("%s: %.2f\n", entity.getDescription(), entity.getScore());
+                    imageLabels.put(entity.getDescription(), entity.getScore());
                 }
-                System.out.println("");
 
-                System.out.println("COLOURS:\n");
+                // read Dominant Colours and add to Image Colours
                 DominantColorsAnnotation domColours = res.getImagePropertiesAnnotation().getDominantColors();
                 for (ColorInfo colour : domColours.getColorsList()) {
                     System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
                             colour.getColor().getRed(), colour.getColor().getGreen(), colour.getColor().getBlue(), colour.getScore());
                 }
+
+                // interpret the Labels and Colours of an image
+                LabelDecoder labelDecoder = new LabelDecoder();
+                labelDecoder.decode(imageLabels);
             }
         }
     }
