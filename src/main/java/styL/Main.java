@@ -13,7 +13,7 @@ public class Main {
 
 
         } catch(Exception e) {
-            System.out.println("Error reading file");
+            System.out.println("Error: " + e);
         }
 
         // for use with terminal lol

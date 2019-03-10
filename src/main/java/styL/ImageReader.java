@@ -33,7 +33,7 @@ public class ImageReader {
 
     public static void annotate(String fileName) throws Exception {
         Credentials myCredentials = ServiceAccountCredentials.fromStream(
-                new FileInputStream("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
+                new FileInputStream("C:\\Users\\maxin\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
         ImageAnnotatorSettings imageAnnotatorSettings =
                 ImageAnnotatorSettings.newBuilder()
                         .setCredentialsProvider(FixedCredentialsProvider.create(myCredentials))
@@ -53,8 +53,8 @@ public class ImageReader {
             // requests for what we want to do to the image
             AnnotateImageRequest.Builder requestBuilder = AnnotateImageRequest.newBuilder();
             requests.add(requestBuilder
-                    .addFeatures(Feature.newBuilder().setType(Type.LABEL_DETECTION).build())
-                    .addFeatures(Feature.newBuilder().setType(Type.WEB_DETECTION).build())
+                    .addFeatures(Feature.newBuilder().setType(Type.LABEL_DETECTION).setMaxResults(25).build())
+                    .addFeatures(Feature.newBuilder().setType(Type.WEB_DETECTION).setMaxResults(25).build())
                     .addFeatures(Feature.newBuilder().setType(Type.IMAGE_PROPERTIES).build())
                     .setImage(img).build());
 
@@ -79,7 +79,10 @@ public class ImageReader {
                 // read Web Entities and add to Image Labels
                 WebDetection webDet = res.getWebDetection();
                 for (WebDetection.WebEntity entity : webDet.getWebEntitiesList()) {
-                    imageLabels.put(entity.getDescription(), entity.getScore());
+                    if (!entity.getDescription().isEmpty()) {
+                        float score = imageLabels.getOrDefault(entity.getDescription(), 0f);
+                        imageLabels.put(entity.getDescription(), score + entity.getScore());
+                    }
                 }
 
                 // read Dominant Colours and add to Image Colours
@@ -99,7 +102,7 @@ public class ImageReader {
                 */
 
                 // interpret the Labels and Colours of an image
-                LabelDecoder labelDecoder = new LabelDecoder();
+                LabelReader labelDecoder = new LabelReader();
                 labelDecoder.decode(imageLabels);
 
                 ColourReader colourReader = new ColourReader();
