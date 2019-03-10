@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
 
-public class LabelDecoder {
+public class LabelReader {
 
     private final String artsy = "[\\w*\\s*]*((ART)|(GRAPHIC)|(COLOU*R))[\\w*\\s*]*";
     private final String bohemian = "[\\w*\\s*]*((BOHEMIAN)|(BOHO)|(GYPSY)|(HIPPIE)|(PATTERN))[\\w*\\s*]*";
@@ -50,7 +50,7 @@ public class LabelDecoder {
 
     private Map<String, String> lookupStyle;
 
-    public LabelDecoder() {
+    public LabelReader() {
         initializeStyleMap();
     }
 

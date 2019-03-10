@@ -33,7 +33,7 @@ public class ImageReader {
 
     public static void annotate(String fileName) throws Exception {
         Credentials myCredentials = ServiceAccountCredentials.fromStream(
-                new FileInputStream("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
+                new FileInputStream("C:\\Users\\maxin\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
         ImageAnnotatorSettings imageAnnotatorSettings =
                 ImageAnnotatorSettings.newBuilder()
                         .setCredentialsProvider(FixedCredentialsProvider.create(myCredentials))
@@ -102,7 +102,7 @@ public class ImageReader {
                 */
 
                 // interpret the Labels and Colours of an image
-                LabelDecoder labelDecoder = new LabelDecoder();
+                LabelReader labelDecoder = new LabelReader();
                 labelDecoder.decode(imageLabels);
 
                 ColourReader colourReader = new ColourReader();
