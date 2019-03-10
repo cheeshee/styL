@@ -21,14 +21,13 @@ public class ColourReader {
             float red = colour.getColor().getRed();
             float green = colour.getColor().getGreen();
             float blue = colour.getColor().getBlue();
-            /*
 
 
             System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
                     red, green, blue, colour.getScore());
-                    */
 
-            if (colour.getScore() >= 0.25) {
+
+            if (colour.getScore() >= 0.20) {
                 String mainColour = whichColour(red, green, blue);
 
                 System.out.printf("Your clothes are mostly %s \n", mainColour);
@@ -74,20 +73,20 @@ public class ColourReader {
             colour = "green.\n" +
                     "This gives the impression that you are active, kind-hearted, and content. \n";
 
-        }else if (isYellow(red, green, blue)) {
-            colour = "yellow. \n" +
-                    "This is an indicator of happiness and creativity. \n";
-
         }else if (isPurple(red, green, blue)) {
             colour = "purple. \n" +
                     "This gives the impression that you are dreamy, emotional, and unpredictable. \n";
+
+        }else if (isYellow(red, green, blue)) {
+            colour = "yellow. \n" +
+                    "This is an indicator of happiness and creativity. \n";
 
         }else if (isCyan(red, green, blue)) {
             colour = "blue. \n" +
                     "This is a calming colour that gives the impression of trustworthiness. \n";
 
         }else if (isMagenta(red, green, blue)) {
-            colour = "magenta. \n" +
+            colour = "pink. \n" +
                     "This is a striking colour that may attract attention. " +
                     "This gives the impression that you are unpredictable, energetic, and dreamy. \n";
 
