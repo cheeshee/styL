@@ -6,14 +6,24 @@ public class Main {
    // /*
     public static void main(String[] args) {
 
-        String fileName = askForFile();
-        System.out.println("Reading file at " + fileName);
-        try {
-            ImageReader.annotate(fileName);
+        System.out.println("Check your style with StyL. Type 'EXIT' to exit. \n");
+        boolean stay = true;
+        while (stay) {
+            String fileName = askForFile();
+            if (fileName.equals("EXIT")) {
+                stay = false;
+            } else {
 
 
-        } catch(Exception e) {
-            System.out.println("Error: " + e);
+                System.out.println("Reading file at " + fileName);
+                try {
+                    ImageReader.annotate(fileName);
+
+
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
+            }
         }
 
         // for use with terminal lol

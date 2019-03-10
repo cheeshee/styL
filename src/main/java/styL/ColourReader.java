@@ -4,8 +4,10 @@ import com.google.cloud.vision.v1.ColorInfo;
 import com.google.cloud.vision.v1.DominantColorsAnnotation;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class ColourReader {
@@ -17,20 +19,24 @@ public class ColourReader {
 
     public void ColourImpression (DominantColorsAnnotation imageColours) {
 
+        List<String> mainColourSeen = new ArrayList<>();
         for (ColorInfo colour : imageColours.getColorsList()) {
             float red = colour.getColor().getRed();
             float green = colour.getColor().getGreen();
             float blue = colour.getColor().getBlue();
 
 
-            System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
+            /*System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
                     red, green, blue, colour.getScore());
-
+                    */
 
             if (colour.getScore() >= 0.20) {
                 String mainColour = whichColour(red, green, blue);
+                if(!mainColourSeen.contains(mainColour)) {
+                    mainColourSeen.add(mainColour);
 
-                System.out.printf("Your clothes are mostly %s \n", mainColour);
+                    System.out.printf("Your clothes are mostly %s \n", mainColour);
+                }
 
             }
 

@@ -33,7 +33,7 @@ public class ImageReader {
 
     public static void annotate(String fileName) throws Exception {
         Credentials myCredentials = ServiceAccountCredentials.fromStream(
-                new FileInputStream("C:\\Users\\maxin\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
+                new FileInputStream("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
         ImageAnnotatorSettings imageAnnotatorSettings =
                 ImageAnnotatorSettings.newBuilder()
                         .setCredentialsProvider(FixedCredentialsProvider.create(myCredentials))
@@ -87,23 +87,14 @@ public class ImageReader {
 
                 // read Dominant Colours and add to Image Colours
                 DominantColorsAnnotation domColours = res.getImagePropertiesAnnotation().getDominantColors();
-                /*
 
-                float byteSize = 255f;
-                for (ColorInfo colour : domColours.getColorsList()) {
-                    float red = colour.getColor().getRed();
-                    float green = colour.getColor().getGreen();
-                    float blue = colour.getColor().getBlue();
 
-                    System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
-                            red, green, blue, colour.getScore());
-                    imageColours.put(new Color(red/byteSize, green/byteSize, blue/byteSize), colour.getScore());
-                }
-                */
 
                 // interpret the Labels and Colours of an image
                 LabelReader labelDecoder = new LabelReader();
                 labelDecoder.decode(imageLabels);
+
+                System.out.printf("\n");
 
                 ColourReader colourReader = new ColourReader();
                 colourReader.ColourImpression(domColours);

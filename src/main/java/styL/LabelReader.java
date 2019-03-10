@@ -9,9 +9,9 @@ public class LabelReader {
     private final String artsy = "[\\w*\\s*]*((ART)|(GRAPHIC)|(COLOU*R))[\\w*\\s*]*";
     private final String bohemian = "[\\w*\\s*]*((BOHEMIAN)|(BOHO)|(GYPSY)|(HIPPIE)|(PATTERN))[\\w*\\s*]*";
     private final String casual = "[\\w*\\s*]*((CASUAL)|(JEAN)|(TEE)|(HOOD))[\\w*\\s*]*";
-    private final String chic = "[\\w*\\s*]*((CHIC)|(TREND)|(SKIRT)|(BLOUSE)|(PURSE))[\\w*\\s*]*";
+    private final String chic = "[\\w*\\s*]*((BEAUTY)|(CHIC)|(TREND)|(SKIRT)|(BLOUSE)|(PURSE))[\\w*\\s*]*";
     private final String formal = "[\\w*\\s*]*((FORMAL)|(BUSINESS)|(SUIT)|(BLAZER)|(COLLAR)|(TIE)|(HEEL)|(SKIRT)|(DRESS)|(BLOUSE))[\\w*\\s*]*";
-    private final String girly = "[\\w*\\s*]*((DRESS)|(SKIRT)|(LACE)|(FRILL))[\\w*\\s*]*";
+    private final String girly = "[\\w*\\s*]*((BEAUTY)|(DRESS)|(SKIRT)|(LACE)|(FRILL))[\\w*\\s*]*";
     private final String grunge = "[\\w*\\s*]*((GRUNG)|(BAGGY)|(TORN)|(PLAID)|(FLANNEL)|(BOOT))[\\w*\\s*]*";
     private final String preppy = "[\\w*\\s*]*((PREP)|(SCHOOL)|(STUDENT)|(GLASSES)|(BAG))[\\w*\\s*]*";
     private final String rocker = "[\\w*\\s*]*((ROCK)|(BIKE)|(LEATHER)|(DENIM)|(BOOT))[\\w*\\s*]*";
@@ -82,7 +82,7 @@ public class LabelReader {
         // sort map somehow to print larges to smallest percentage?
 
         NumberFormat formatter = new DecimalFormat("#0.0");
-        System.out.println("Results: \n");
+        System.out.println("Here's your style breakdown:\n");
 
         if (totalHits == 0) {
             System.out.println("Could not match to a style");
