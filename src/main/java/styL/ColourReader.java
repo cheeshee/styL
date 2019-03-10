@@ -42,6 +42,9 @@ public class ColourReader {
 
 
         }
+        if (mainColourSeen.isEmpty()) {
+            System.out.printf("You've got a mix of many colours. \n");
+        }
 
     }
 
@@ -106,7 +109,7 @@ public class ColourReader {
 
         } else {
             colour = "an uncommon colour. \n" +
-                    "This may attract attention.";
+                    "Not really sure about this \n.";
         }
 
         return colour;
