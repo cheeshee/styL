@@ -6,14 +6,14 @@ public class Main {
    // /*
     public static void main(String[] args) {
 
-        String fileName = askForFileName();
-        System.out.println("File name received: " + fileName);
+        String fileName = askForFile();
+        System.out.println("Reading file at " + fileName);
         try {
             ImageReader.annotate(fileName);
 
 
         } catch(Exception e) {
-            // blah
+            System.out.println("Error reading file");
         }
 
         // for use with terminal lol
@@ -37,7 +37,7 @@ public class Main {
         */
     }
 
-    private static String askForFileName() {
+    private static String askForFile() {
         System.out.println("Enter the path of your photo: ");
         Scanner sc = new Scanner(System.in);
         return sc.next();
