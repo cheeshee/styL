@@ -25,10 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageReader {
-/*
-    //private Credentials myCredentials;
-    //private ImageAnnotatorSettings imageAnnotatorSettings;
-    //private ImageAnnotatorClient vision;
+    // as an object
+    /*
+    private Credentials myCredentials;
+    private ImageAnnotatorSettings imageAnnotatorSettings;
+    private ImageAnnotatorClient vision;
 
     // default constructor initializes credentials
     public ImageReader() {
@@ -122,12 +123,13 @@ public class ImageReader {
             // Builds the image annotation request
             List<AnnotateImageRequest> requests = new ArrayList<>();
             Image img = Image.newBuilder().setContent(imgBytes).build();
-            Feature feat = Feature.newBuilder().setType(Type.LABEL_DETECTION).build();
-            AnnotateImageRequest request = AnnotateImageRequest.newBuilder()
-                    .addFeatures(feat)
-                    .setImage(img)
-                    .build();
-            requests.add(request);
+            // requests for what we want to do to the image
+            AnnotateImageRequest.Builder requestBuilder = AnnotateImageRequest.newBuilder();
+            requests.add(requestBuilder
+                    .addFeatures(Feature.newBuilder().setType(Type.LABEL_DETECTION).build())
+                    .addFeatures(Feature.newBuilder().setType(Type.WEB_DETECTION).build())
+                    .addFeatures(Feature.newBuilder().setType(Type.IMAGE_PROPERTIES).build())
+                    .setImage(img).build());
 
             // Performs label detection on the image file
             BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
@@ -139,13 +141,26 @@ public class ImageReader {
                     return;
                 }
 
+                System.out.println("LABELS:\n");
                 for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-                    System.out.printf("%s: %s\n", annotation.getDescription(), annotation.getScore());
+                    System.out.printf("%s: %.2f\n", annotation.getDescription(), annotation.getScore());
+                }
+                System.out.println("");
+
+                System.out.println("WEB:\n");
+                WebDetection webDet = res.getWebDetection();
+                for (WebDetection.WebEntity entity : webDet.getWebEntitiesList()) {
+                    System.out.printf("%s: %.2f\n", entity.getDescription(), entity.getScore());
+                }
+                System.out.println("");
+
+                System.out.println("COLOURS:\n");
+                DominantColorsAnnotation domColours = res.getImagePropertiesAnnotation().getDominantColors();
+                for (ColorInfo colour : domColours.getColorsList()) {
+                    System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
+                            colour.getColor().getRed(), colour.getColor().getGreen(), colour.getColor().getBlue(), colour.getScore());
                 }
 
-                for (EntityAnnotation webEnt : res.getWebDetection()) {
-
-                }
             }
         }
     }
