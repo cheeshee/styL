@@ -12,9 +12,11 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.vision.v1.*;
 import com.google.cloud.vision.v1.Feature.Type;
+import com.google.cloud.vision.v1.Image;
 import com.google.common.collect.Lists;
 import com.google.protobuf.ByteString;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,7 +30,6 @@ import java.util.Map;
 
 public class ImageReader {
     // as an object
-
 
     public static void annotate(String fileName) throws Exception {
         Credentials myCredentials = ServiceAccountCredentials.fromStream(
@@ -68,7 +69,7 @@ public class ImageReader {
                 }
 
                 Map<String, Float> imageLabels = new HashMap<>();
-                Map<String, Double> imageColours = new HashMap<>();
+                Map<Color, Float> imageColours = new HashMap<>();
 
                 // read Annotation Labels and add to Image Labels
                 for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
@@ -83,14 +84,26 @@ public class ImageReader {
 
                 // read Dominant Colours and add to Image Colours
                 DominantColorsAnnotation domColours = res.getImagePropertiesAnnotation().getDominantColors();
+                /*
+
+                float byteSize = 255f;
                 for (ColorInfo colour : domColours.getColorsList()) {
+                    float red = colour.getColor().getRed();
+                    float green = colour.getColor().getGreen();
+                    float blue = colour.getColor().getBlue();
+
                     System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
-                            colour.getColor().getRed(), colour.getColor().getGreen(), colour.getColor().getBlue(), colour.getScore());
+                            red, green, blue, colour.getScore());
+                    imageColours.put(new Color(red/byteSize, green/byteSize, blue/byteSize), colour.getScore());
                 }
+                */
 
                 // interpret the Labels and Colours of an image
                 LabelDecoder labelDecoder = new LabelDecoder();
                 labelDecoder.decode(imageLabels);
+
+                ColourReader colourReader = new ColourReader();
+                colourReader.ColourImpression(domColours);
             }
         }
     }
