@@ -39,7 +39,7 @@ public class ImageReader {
 
 
             // The path to the image file to annotate
-            String fileName = "../../../../../../../cookies.jpg";
+            String fileName = "C:/Users/cheep/Downloads/Pengasia+Street+Style+2017+-+Womens+25-01.jpg";
 
             // Reads the image file into memory
             Path path = Paths.get(fileName);
