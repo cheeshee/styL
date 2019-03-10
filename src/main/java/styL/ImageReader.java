@@ -127,8 +127,8 @@ public class ImageReader {
             // requests for what we want to do to the image
             AnnotateImageRequest.Builder requestBuilder = AnnotateImageRequest.newBuilder();
             requests.add(requestBuilder
-                    .addFeatures(Feature.newBuilder().setType(Type.LABEL_DETECTION).build())
-                    .addFeatures(Feature.newBuilder().setType(Type.WEB_DETECTION).build())
+                    .addFeatures(Feature.newBuilder().setType(Type.LABEL_DETECTION).setMaxResults(25).build())
+                    .addFeatures(Feature.newBuilder().setType(Type.WEB_DETECTION).setMaxResults(25).build())
                     .addFeatures(Feature.newBuilder().setType(Type.IMAGE_PROPERTIES).build())
                     .setImage(img).build());
 
@@ -153,14 +153,17 @@ public class ImageReader {
                 // read Web Entities and add to Image Labels
                 WebDetection webDet = res.getWebDetection();
                 for (WebDetection.WebEntity entity : webDet.getWebEntitiesList()) {
-                    imageLabels.put(entity.getDescription(), entity.getScore());
+                    if (!entity.getDescription().isEmpty()) {
+                        float score = imageLabels.getOrDefault(entity.getDescription(), 0f);
+                        imageLabels.put(entity.getDescription(), score + entity.getScore());
+                    }
                 }
 
                 // read Dominant Colours and add to Image Colours
                 DominantColorsAnnotation domColours = res.getImagePropertiesAnnotation().getDominantColors();
                 for (ColorInfo colour : domColours.getColorsList()) {
-                    System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
-                            colour.getColor().getRed(), colour.getColor().getGreen(), colour.getColor().getBlue(), colour.getScore());
+                    //System.out.printf("Colour R=%.2f, G=%.2f, B=%.2f: %.3f percent of image\n",
+                    //        colour.getColor().getRed(), colour.getColor().getGreen(), colour.getColor().getBlue(), colour.getScore());
                 }
 
                 // interpret the Labels and Colours of an image
