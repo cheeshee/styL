@@ -3,22 +3,18 @@ package styL;
 
 // Imports the Google Cloud client library
 
+import com.google.api.gax.core.CredentialsProvider;
+import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.api.gax.paging.Page;
+import com.google.api.gax.rpc.ClientContext;
+import com.google.auth.Credentials;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.vision.v1.AnnotateImageRequest;
-import com.google.cloud.vision.v1.AnnotateImageResponse;
-import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
-import com.google.cloud.vision.v1.EntityAnnotation;
-import com.google.cloud.vision.v1.Feature;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.vision.v1.*;
 import com.google.cloud.vision.v1.Feature.Type;
-import com.google.cloud.vision.v1.Image;
-import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.common.collect.Lists;
 import com.google.protobuf.ByteString;
-import io.grpc.Context;
-import io.grpc.Context.Storage;
-import io.opencensus.metrics.export.Distribution;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,9 +26,17 @@ import java.util.List;
 
 public class ImageReader {
     public static void main(String... args) throws Exception {
-        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
+        //authExplicit("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json");
 
-            authExplicit("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json");
+        Credentials myCredentials = ServiceAccountCredentials.fromStream(
+                new FileInputStream("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
+        ImageAnnotatorSettings imageAnnotatorSettings =
+                ImageAnnotatorSettings.newBuilder()
+                        .setCredentialsProvider(FixedCredentialsProvider.create(myCredentials))
+                        .build();
+        try (ImageAnnotatorClient vision =
+                     ImageAnnotatorClient.create(imageAnnotatorSettings)) {
+
 
             // The path to the image file to annotate
             String fileName = "../../../../../../../cookies.jpg";
@@ -69,7 +73,8 @@ public class ImageReader {
             }
         }
     }
-        static void authExplicit(String jsonPath) throws IOException {
+    /*
+    static void authExplicit(String jsonPath) throws IOException {
         // You can specify a credential file by providing a path to GoogleCredentials.
         // Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS environment variable.
         GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath))
@@ -77,4 +82,5 @@ public class ImageReader {
         //Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
 
     }
+    */
 }
