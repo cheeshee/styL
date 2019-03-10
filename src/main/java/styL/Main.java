@@ -10,6 +10,8 @@ public class Main {
         System.out.println("Reading file at " + fileName);
         try {
             ImageReader.annotate(fileName);
+
+
         } catch(Exception e) {
             System.out.println("Error: " + e);
         }
