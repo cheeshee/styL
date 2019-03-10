@@ -83,26 +83,26 @@ public class ColourReader {
             colour = "purple. \n" +
                     "This gives the impression that you are dreamy, emotional, and unpredictable. \n";
 
-        }else if (isYellow(red, green, blue)) {
-            colour = "yellow. \n" +
-                    "This is an indicator of happiness and creativity. \n";
-
-        }else if (isCyan(red, green, blue)) {
-            colour = "blue. \n" +
-                    "This is a calming colour that gives the impression of trustworthiness. \n";
+        }else if (isPink(red, green, blue)) {
+            colour = "pink.\n " +
+                    "This gives the impression that you are romantic, optimistic, and kind. \n";
 
         }else if (isMagenta(red, green, blue)) {
             colour = "pink. \n" +
                     "This is a striking colour that may attract attention. " +
                     "This gives the impression that you are unpredictable, energetic, and dreamy. \n";
 
-        }else if (isPink(red, green, blue)) {
-            colour = "pink.\n " +
-                    "This gives the impression that you are romantic, optimistic, and kind. \n";
+        }else if (isCyan(red, green, blue)) {
+            colour = "blue. \n" +
+                    "This is a calming colour that gives the impression of trustworthiness. \n";
 
         } else if (isOrange(red, green, blue)) {
             colour = "orange. \n" +
                     "This is gives the impression that you are cheerful, optimistic, and creative. \n";
+
+        }else if (isYellow(red, green, blue)) {
+            colour = "yellow. \n" +
+                    "This is an indicator of happiness and creativity. \n";
 
         } else {
             colour = "an uncommon colour. \n" +
@@ -130,8 +130,8 @@ public class ColourReader {
 
     private boolean isGrey(float red, float green, float blue) {
         boolean result = false;
-        if (green <= red + leeway && green >= red - leeway) {
-            if (green <= blue + leeway && green >= blue - leeway) {
+        if (green <= red + 20 && green >= red - 20) {
+            if (green <= blue + 20 && green >= blue - 20) {
                 result = true;
             }
         }

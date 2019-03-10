@@ -8,15 +8,15 @@ public class LabelReader {
 
     private final String artsy = "[\\w*\\s*]*((ART)|(GRAPHIC)|(COLOU*R))[\\w*\\s*]*";
     private final String bohemian = "[\\w*\\s*]*((BOHEMIAN)|(BOHO)|(GYPSY)|(HIPPIE)|(PATTERN))[\\w*\\s*]*";
-    private final String casual = "[\\w*\\s*]*((CASUAL)|(JEAN)|(TEE)|(HOOD))[\\w*\\s*]*";
+    private final String casual = "[\\w*\\s*]*((CASUAL)|(JEAN)|(TEE)|(HOOD)|(HIP)|(T-SHIRT))[\\w*\\s*]*";
     private final String chic = "[\\w*\\s*]*((BEAUTY)|(CHIC)|(TREND)|(SKIRT)|(BLOUSE)|(PURSE))[\\w*\\s*]*";
     private final String formal = "[\\w*\\s*]*((FORMAL)|(BUSINESS)|(SUIT)|(BLAZER)|(COLLAR)|(TIE)|(HEEL)|(SKIRT)|(DRESS)|(BLOUSE))[\\w*\\s*]*";
     private final String girly = "[\\w*\\s*]*((BEAUTY)|(DRESS)|(SKIRT)|(LACE)|(FRILL))[\\w*\\s*]*";
-    private final String grunge = "[\\w*\\s*]*((GRUNG)|(BAGGY)|(TORN)|(PLAID)|(FLANNEL)|(BOOT))[\\w*\\s*]*";
+    private final String grunge = "[\\w*\\s*]*((GRUNG)|(BAGGY)|(TORN)|(PLAID)|(FLANNEL)|(BOOT)|(HIP))[\\w*\\s*]*";
     private final String preppy = "[\\w*\\s*]*((PREP)|(SCHOOL)|(STUDENT)|(GLASSES)|(BAG))[\\w*\\s*]*";
     private final String rocker = "[\\w*\\s*]*((ROCK)|(BIKE)|(LEATHER)|(DENIM)|(BOOT))[\\w*\\s*]*";
-    private final String sporty = "[\\w*\\s*]*((SPORT)|(ACTIVE)|(ATHLET)|(RUN)|(SHORTS)|(TANK))[\\w*\\s*]*";
-    private final String street = "[\\w*\\s*]*((STREET)|(SURF)|(SKATE)|(CAP)|(HAT)|(TEE))[\\w*\\s*]*";
+    private final String sporty = "[\\w*\\s*]*((SPORT)|(ACTIVE)|(ATHLET)|(RUN)|(SHORTS)|(TANK)|(T-SHIRT))[\\w*\\s*]*";
+    private final String street = "[\\w*\\s*]*((STREET)|(SURF)|(SKATE)|(CAP)|(HAT)|(TEE)|(T-SHIRT)|(HIP))[\\w*\\s*]*";
     private final String vintage = "[\\w*\\s*]*((VINTAGE)|(RETRO)|(DRESS)|(BLOUSE))[\\w*\\s*]*";
 
     private final String styleDescriptions[] = {
