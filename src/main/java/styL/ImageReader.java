@@ -30,6 +30,7 @@ import java.util.List;
 
 public class ImageReader {
     public static void main(String... args) throws Exception {
+        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
 
             authExplicit("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json");
 
@@ -67,7 +68,7 @@ public class ImageReader {
                 }
             }
         }
-
+    }
         static void authExplicit(String jsonPath) throws IOException {
         // You can specify a credential file by providing a path to GoogleCredentials.
         // Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS environment variable.
