@@ -8,5 +8,5 @@
 /build/
 .classpath
 .idea
-.idea/
+/.idea/
 .xml
