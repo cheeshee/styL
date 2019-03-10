@@ -105,7 +105,7 @@ public class ImageReader {
 
     public static void annotate(String fileName) throws Exception {
         Credentials myCredentials = ServiceAccountCredentials.fromStream(
-                new FileInputStream("C:\\Users\\maxin\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
+                new FileInputStream("C:\\Users\\cheep\\Downloads\\rock-heaven-224219-d31b84146fce.json"));
         ImageAnnotatorSettings imageAnnotatorSettings =
                 ImageAnnotatorSettings.newBuilder()
                         .setCredentialsProvider(FixedCredentialsProvider.create(myCredentials))
@@ -113,13 +113,7 @@ public class ImageReader {
         try (ImageAnnotatorClient vision =
                      ImageAnnotatorClient.create(imageAnnotatorSettings)) {
 
-<<<<<<< HEAD
 
-            // The path to the image file to annotate
-            String fileName = "C:/Users/cheep/Downloads/Pengasia+Street+Style+2017+-+Womens+25-01.jpg";
-
-=======
->>>>>>> 02dafbadced88ee03f313a8e80fc7a70e2a3ae9e
             // Reads the image file into memory
             Path path = Paths.get(fileName);
             byte[] data = Files.readAllBytes(path);
@@ -147,6 +141,10 @@ public class ImageReader {
 
                 for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
                     System.out.printf("%s: %s\n", annotation.getDescription(), annotation.getScore());
+                }
+
+                for (EntityAnnotation webEnt : res.getWebDetection()) {
+
                 }
             }
         }
